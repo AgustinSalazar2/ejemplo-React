@@ -10,16 +10,21 @@ function App() {
       const resp = await fetch(url);
       const data = await resp.json();
       // console.log(data.results);
-      setData(data);
+      setData(data.results);
     } catch (error) {
       console.log("Ocurrio un error: ", error);
     }
   };
 
+  const handleEliminar = (position) => {
+    const nuevoArray = data.map((elem, i)=>position != i && elem)
+    setData(nuevoArray)
+  }
+
   return (
     <div className="App">
       <h1>Rick and Morty API</h1>
-      {!data.results ? (
+      {data.length == 0 ? (
         <button
           onClick={() =>
             consumirApi("https://rickandmortyapi.com/api/character")
@@ -30,7 +35,7 @@ function App() {
       ) : (
         <div className="container-fluid">
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6">
-            {data.results && data.results.map((elem, i) => <Card key={i} datos={elem} />)}
+            {data.map((elem, i) => elem && <Card key={i} datos={elem} posicion={i} handleEliminar={handleEliminar} />)}
           </div>
         </div>
       )}
