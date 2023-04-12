@@ -17,7 +17,8 @@ function App() {
   };
 
   const handleEliminar = (position) => {
-    const nuevoArray = data.map((elem, i)=>position != i && elem)
+    const nuevoArray = data.filter((elem, i)=>position != i && elem)
+    // console.log(nuevoArray)
     setData(nuevoArray)
   }
 
@@ -35,7 +36,7 @@ function App() {
       ) : (
         <div className="container-fluid">
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6">
-            {data.map((elem, i) => elem && <Card key={i} datos={elem} posicion={i} handleEliminar={handleEliminar} />)}
+            {data.map((elem, i) => <Card key={i} datos={elem} posicion={i} handleEliminar={handleEliminar} />)}
           </div>
         </div>
       )}
